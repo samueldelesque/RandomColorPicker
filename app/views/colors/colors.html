@@ -34,6 +34,13 @@
 		<button type="submit">Update Colors</button>
 	</form>
 	<button ng-click="toggleResults()" class="export">{{resultsShown?"Hide":"Export"}} Colors</button>
+
+	<p class="dominance">
+		<label for="dominance-red" class="red">Red</label><input id="dominance-red" type="radio" value="red" ng-model="dominance"> 
+		<label for="dominance-blue" class="blue">Blue</label><input type="radio" value="blue" id="dominance-blue" ng-model="dominance"> 
+		<label for="dominance-green" class="green">Green</label><input type="radio" value="green" id="dominance-green" ng-model="dominance"> 
+		<label for="dominance-all" class="all">All</label> <input type="radio" value="all" id="dominance-all" ng-model="dominance">
+	</p>
 </div>
 <div class="results" ng-show="resultsShown">
 	<p ng-repeat="color in palette">
@@ -45,7 +52,12 @@
 	</p>
 </div>
 <div class="colors">
-	<div class="color" ng-repeat="color in patrone" ng-click="toggleColor(color)" style="background:#{{color.hex}}"></div>
+	<div class="color"
+		ng-repeat="color in patrone | byColor:dominance"
+		ng-click="toggleColor(color)"
+		style="background:#{{color.hex}};">
+		<!-- -webkit-transition-delay:{{$index * 100}}ms;transition-delay:{{$index * 100}}ms; -->
+	</div>
 </div>
 <div class="palette" ng-show="countSelection() > 0">
 	<!-- <div class="inner" style="width:{{countSelection() * 40}}px"> -->

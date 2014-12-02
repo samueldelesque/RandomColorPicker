@@ -2,6 +2,7 @@
 @import "prefixer.less";
 body{
 	background: #efefef;
+	min-height: 900px;
 }
 * {
 	box-sizing: border-box;
@@ -13,6 +14,13 @@ a,a:visited{
 a:hover{
 	color:#2baf5d;
 }
+
+@leftCol: 220px;
+@infoHeight:600px;
+@activeBoxSize:40px;
+@passiveBoxSize:50px;
+@resultColorSize:10px;
+
 .menu {
 	list-style: none;
 	margin:0;
@@ -33,8 +41,6 @@ a:hover{
 		margin: 0 6px;
 	}
 }
-@leftCol: 220px;
-@infoHeight:412px;
 .info{
 	position: absolute;
 	z-index: 9;
@@ -44,7 +50,6 @@ a:hover{
 	height: @infoHeight+20;
 	max-width: 90%;
 	left: 10px;
-	overflow: auto;
 	background: #fff;
 	.box-shadow(0 0 5px rgba(0,0,0,.2));
 	input{
@@ -55,6 +60,58 @@ a:hover{
 		padding: 10px;
 		.box-shadow(0 0 5px rgba(120,120,120,.2));
 		outline: none;
+		&:focus{
+			.box-shadow(0 0 7px rgba(100,200,220,.7));
+		}
+	}
+	input[type="radio"]{
+		.box-shadow(none);
+		display: inline-block;
+		vertical-align: middle;
+		width: 15px;
+		margin-right: 10px;
+	}
+	.dominance{
+		label{
+			@s: @leftCol/2 - 40;
+			display: inline-block;
+			position: relative;
+			width: @s;
+			height: @s;
+			padding: 25px;
+			text-indent: -9999px;
+			.rounded(@s);
+			.opacity(.95);
+			.box-shadow(0 0 5px rgba(120,120,120,.2));
+
+			&.red{
+				background: #ff6e6c;
+				.translate(50px,0);
+				z-index: 1;
+			}
+			&.green{
+				background: #68F888;
+				z-index: 2;
+				.translate(10px,-35px);
+			}
+			&.blue{
+				background: #2A7EC7;
+				z-index: 3;
+				margin-left:20px;
+				.translate(-45px,70px);
+			}
+			&.all{
+				background: #efefef;
+				text-align: center;
+				z-index: 4;
+				// text-indent: 0;
+				margin-left:20px;
+				.translate(-5px,-35px);
+			}
+		}
+		input{
+			display: none;
+		}
 	}
 	button{
 		width: 100%;
@@ -66,7 +123,7 @@ a:hover{
 		outline: none;
 		.box-shadow(0 0 5px rgba(120,120,120,.2));
 		&.export{
-			background: #88FEFE;
+			background: #2A7EC7;
 		}
 	}
 	.col{
@@ -78,7 +135,6 @@ a:hover{
 		}
 	}
 }
-@activeBoxSize:40px;
 .palette{
 	position: absolute;
 	z-index: 9;
@@ -86,11 +142,9 @@ a:hover{
 	left: 10px;
 	padding: 10px;
 	top:@infoHeight+40;
-	// height:@activeBoxSize;
 	overflow: auto;
 	background: #fff;
 	.box-shadow(0 0 5px rgba(0,0,0,.2));
-	text-align: center;
 	.inner{
 		margin: 0 auto;
 	}
@@ -135,15 +189,8 @@ a:hover{
 		}
 	}
 }
-@passiveBoxSize:50px;
 .colors{
-	// position: fixed;
-	// z-index: -1;
-	// top:0;
-	// left: 0;
-	// width: 100%;
-	// height: 100%;
-	// overflow: auto;
+	overflow-x: hidden;
 	.color{
 		width: @passiveBoxSize;
 		height: @passiveBoxSize;
@@ -151,6 +198,11 @@ a:hover{
 		vertical-align: top;
 		border:5px solid transparent;
 		cursor: crosshair;
+		// .opacity(0);
+		// &.ng-enter{
+		// 	.opacity(1);
+		// }
+		
 		&:hover{
 			.transition(.2s);
 			.scale(2);
@@ -160,7 +212,6 @@ a:hover{
 		}
 	}
 }
-@resultColorSize:10px;
 .results{
 	position: absolute;
 	z-index: 9;
@@ -196,7 +247,7 @@ a:hover{
 	}
 }
 .about{
-	margin: 20px auto;
+	margin: 200px auto;
 	width: 400px;
 	padding: 20px;
 	background: #fff;
