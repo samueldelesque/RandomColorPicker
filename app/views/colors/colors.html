@@ -1,0 +1,52 @@
+<div class="info">
+	<!-- windowWidth: {{windowWidth}}
+	windowHeight: {{windowHeight}} -->
+	<form ng-submit="renderColors()">
+		<div>
+			<div class="col">
+			<label>F1</label>
+			<input type="text" ng-model="algo.f1">
+			<label>F2</label>
+			<input type="text" ng-model="algo.f2">
+			<label>F3</label>
+			<input type="text" ng-model="algo.f3">
+			</div>
+
+			<div class="col">
+			<label>L1</label>
+			<input type="text" ng-model="algo.l1">
+			<label>L2</label>
+			<input type="text" ng-model="algo.l2">
+			<label>L3</label>
+			<input type="text" ng-model="algo.l3">
+			</div>
+		</div>
+		<br class="clearfix">
+		<!-- 
+		<label>M1</label>
+		<input type="text" ng-model="algo.m1">
+		<label>M2</label>
+		<input type="text" ng-model="algo.m2"> -->
+		
+		<label>Qty.</label>
+		<input type="number" ng-model="algo.blocks">
+
+		<button type="submit">Update Colors</button>
+	</form>
+	<button ng-click="toggleResults()" class="export">{{resultsShown?"Hide":"Export"}} Colors</button>
+</div>
+<div class="results" ng-show="resultsShown">
+	<p ng-repeat="color in palette">
+		<span class="color" style="background:#{{color.hex}}"></span> #{{color.hex}}
+	</p>
+</div>
+<div class="colors">
+	<div class="color" ng-repeat="color in patrone" ng-click="toggleColor(color)" style="background:#{{color.hex}}"></div>
+</div>
+<div class="palette" ng-show="countSelection() > 0">
+	<!-- <div class="inner" style="width:{{countSelection() * 40}}px"> -->
+		<div class="color" ng-repeat="color in palette" ng-click="toggleColor(color)" style="background:#{{color.hex}}">
+			<!-- <span class="remove" ng-click="toggleColor(color)"></span> -->
+		</div>
+	<!-- </div> -->
+</div>
