@@ -39,6 +39,10 @@
 	<p ng-repeat="color in palette">
 		<span class="color" style="background:#{{color.hex}}"></span> #{{color.hex}}
 	</p>
+	<p>
+		JSON:
+		<textarea>{{palette}}</textarea>
+	</p>
 </div>
 <div class="colors">
 	<div class="color" ng-repeat="color in patrone" ng-click="toggleColor(color)" style="background:#{{color.hex}}"></div>
