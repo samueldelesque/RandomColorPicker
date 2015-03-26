@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.colors', ['ngRoute'])
+angular.module('myApp.colors', ['ngRoute'])//,'ngAnimate'
 
 .config(['$routeProvider', function($routeProvider) {
 	$routeProvider.when('/colors', {
@@ -75,8 +75,38 @@ angular.module('myApp.colors', ['ngRoute'])
 		return $scope.palette.length;
 	}
 	$scope.resultsShown = false;
+	$scope.dominance = "all";
 	$scope.toggleResults = function(){
 		$scope.resultsShown = !$scope.resultsShown;
+	}
+})
+
+.filter("byColor",function(){
+	return function(items,color){
+		var results = [];
+		angular.forEach(items, function(item){
+			var r = parseInt(item.hex.slice(0,2),16);
+			var g = parseInt(item.hex.slice(2,4),16);
+			var b = parseInt(item.hex.slice(4,6),16);
+			switch(color){
+				case "r":
+				case "red":
+					if(r > g && r > b){results.push(item);}
+				break;
+				case "g":
+				case "green":
+					if(g > r && g > b){results.push(item);}
+				break;
+				case "b":
+				case "blue":
+					if(b > r && b > g){results.push(item);}
+				break;
+				default:
+					results.push(item);
+				break;
+			}
+		});
+		return results;
 	}
 });
 
